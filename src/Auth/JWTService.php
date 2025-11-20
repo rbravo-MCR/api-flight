@@ -13,15 +13,16 @@ use Firebase\JWT\Key;
 class JWTService implements SessionServiceInterface
 {
     private string $alg = 'HS256';
-    private RefreshTokenRepositoryInterface $refreshRepo;
-    private UserRepositoryInterface $users;
+    private string $jwtSecret;
+    private int $accessTokenTtl;
+    private int $refreshTokenTtl;
     private string $issuer;
 
     public function __construct(
         string $jwtSecret,
         RefreshTokenRepositoryInterface $refreshRepo,
         UserRepositoryInterface $users,
-        string $issuer = 'your-app',
+        string $issuer = 'app',
         int $accessTokenTtl = 900,      // 15 minutos
         int $refreshTokenTtl = 604800   // 7 días
     ) {
